@@ -6881,12 +6881,10 @@ inline int getaddrinfo_with_timeout(const char *node, const char *service,
   // actually finish before letting the stack frame go. The trade-off is that
   // a wedged DNS server can hold this thread for the system resolver timeout
   // (~30s by default) past the caller's connection timeout.
-  struct gaicb request {};
+  struct gaicb request{};
   struct gaicb *requests[1] = {&request};
-  struct sigevent sevp {};
-  struct timespec timeout {
-    timeout_sec, 0
-  };
+  struct sigevent sevp{};
+  struct timespec timeout{timeout_sec, 0};
 
   request.ar_name = node;
   request.ar_service = service;

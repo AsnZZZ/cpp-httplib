@@ -37,6 +37,10 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+      - name: install clang-format
+        run: |
+          pipx install clang-format==23.1.0
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: run style check
         run: |
           clang-format --version
