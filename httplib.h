@@ -4603,8 +4603,8 @@ private:
 };
 
 template <class Rep, class Period>
-inline void
-WebSocket::set_read_timeout(const std::chrono::duration<Rep, Period> &duration) {
+inline void WebSocket::set_read_timeout(
+    const std::chrono::duration<Rep, Period> &duration) {
   detail::duration_to_sec_and_usec(
       duration, [&](time_t sec, time_t usec) { set_read_timeout(sec, usec); });
 }
@@ -6402,8 +6402,7 @@ inline ssize_t select_impl(socket_t sock, short events, time_t sec,
 
   // A negative timeout waits forever, poll's own convention. 0 keeps meaning
   // "return immediately", which callers here rely on to probe a socket.
-  auto timeout =
-      sec < 0 ? -1 : static_cast<int>(sec * 1000 + usec / 1000);
+  auto timeout = sec < 0 ? -1 : static_cast<int>(sec * 1000 + usec / 1000);
 
   return handle_EINTR([&]() { return poll_wrapper(&pfd, 1, timeout); });
 }

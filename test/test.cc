@@ -22341,9 +22341,9 @@ TEST(WebSocketTest, RSVBitsMustBeZero) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Fail);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Fail);
   }
 
   // RSV2 set (0x20)
@@ -22353,9 +22353,9 @@ TEST(WebSocketTest, RSVBitsMustBeZero) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Fail);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Fail);
   }
 
   // RSV3 set (0x10)
@@ -22365,9 +22365,9 @@ TEST(WebSocketTest, RSVBitsMustBeZero) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Fail);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Fail);
   }
 
   // No RSV bits set - should succeed
@@ -22377,9 +22377,9 @@ TEST(WebSocketTest, RSVBitsMustBeZero) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Ok);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Ok);
     EXPECT_EQ(ws::Opcode::Text, opcode);
     EXPECT_EQ("Hello", payload);
     EXPECT_TRUE(fin);
@@ -22400,9 +22400,9 @@ TEST(WebSocketTest, ControlFrameValidation) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Fail);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Fail);
   }
 
   // Close with FIN=0 - must be rejected
@@ -22415,9 +22415,9 @@ TEST(WebSocketTest, ControlFrameValidation) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Fail);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Fail);
   }
 
   // Ping with payload_len=126 (extended length) - must be rejected
@@ -22433,9 +22433,9 @@ TEST(WebSocketTest, ControlFrameValidation) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Fail);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Fail);
   }
 
   // Ping with FIN=1 and payload_len=125 - should succeed
@@ -22449,9 +22449,9 @@ TEST(WebSocketTest, ControlFrameValidation) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Ok);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Ok);
     EXPECT_EQ(ws::Opcode::Ping, opcode);
     EXPECT_EQ(125u, payload.size());
     EXPECT_TRUE(fin);
@@ -22474,9 +22474,9 @@ TEST(WebSocketTest, PayloadLength64BitMSBMustBeZero) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Fail);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Fail);
   }
 
   // MSB clear - should pass length parsing (will be rejected by max_len,
@@ -22493,9 +22493,9 @@ TEST(WebSocketTest, PayloadLength64BitMSBMustBeZero) {
     ws::Opcode opcode;
     std::string payload;
     bool fin;
-    EXPECT_EQ(ws::impl::read_websocket_frame(strm, opcode, payload, fin, false,
-                                             1024),
-              ws::impl::FrameRead::Ok);
+    EXPECT_EQ(
+        ws::impl::read_websocket_frame(strm, opcode, payload, fin, false, 1024),
+        ws::impl::FrameRead::Ok);
     EXPECT_EQ(ws::Opcode::Text, opcode);
     EXPECT_EQ("abc", payload);
   }
