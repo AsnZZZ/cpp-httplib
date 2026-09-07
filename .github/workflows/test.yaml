@@ -31,7 +31,10 @@ env:
 
 jobs:
   style-check:
-    runs-on: ubuntu-latest
+    # Uses the macOS runner's pre-installed Homebrew so clang-format tracks
+    # whatever version `brew install clang-format` currently resolves to on
+    # the maintainer's own Mac, instead of a version pinned in this file.
+    runs-on: macos-latest
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
     continue-on-error: true
     steps:
@@ -39,8 +42,8 @@ jobs:
         uses: actions/checkout@v4
       - name: install clang-format
         run: |
-          pipx install clang-format==23.1.0
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          brew update
+          brew install clang-format coreutils
       - name: run style check
         run: |
           clang-format --version
